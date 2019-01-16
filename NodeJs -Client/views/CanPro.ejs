@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="css/myStyle.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script> 
+    <script>
+        $(document).ready(function(){     
+        $('#login-form-link').click(function(e) {
+        $("#login-form").delay(100).fadeIn(100);
+        $("#register-form").fadeOut(100);
+        $('#register-form-link').removeClass('active');
+        $(this).addClass('active');
+        e.preventDefault();
+        });
+        $('#register-form-link').click(function(e) {
+        $("#register-form").delay(100).fadeIn(100);
+        $("#login-form").fadeOut(100);
+        $('#login-form-link').removeClass('active');
+        $(this).addClass('active');
+        e.preventDefault();
+    });
+   });
+    </script>  
+    <script type="text/javascript">
+    function encrypt(pass)
+    {               
+         return $.ajax({
+              url: "/encryptPassword",
+              data:{
+                password:pass
+              },             
+              success:function(enpwd)
+              {            
+                //console.log(data);
+              },
+              error:function()
+              {
+              }
+        });              
+    }
+    </script>  
+    <script type="text/javascript">
+        function handleRegister(){                          
+        username=$("#newusername").val();
+        email=$("#email").val();        
+        pass=$("#fresh").val();
+        gender=$("#gender").val();
+        city = $("#city").val();
+        state = $("#state").val();
+        nationality = $("#nationality").val();
+        $.ajax({
+              url: "/encryptPassword",
+              data:{
+                password:pass,
+                username : username
+              },
+              success:function(data)
+              { 
+                pass=data;
+                console.log('encrypted_password is'+pass);   
+                var JSONObject = {
+                    'email':email,
+                    'encrypted_password':pass,
+                    'username':username,
+                    'gender':gender,
+                    'city':city,
+                    'state':state,
+                    'nationality':nationality
+                };
+                $.ajax({
+                                    type: "POST",
+                                    contentType: "application/json",
+                                    url: "http://localhost:3000/users",    
+                                    data:JSON.stringify(JSONObject), 
+                                    success:function(data){
+                                      console.log(data);
+                                      var object = {
+                                        'user_id':data.id,
+                                        'available_credit':1000,
+                                        'expenses':0                                     
+                                      };
+                                      $.ajax({
+                                        type: "POST",
+                                        contentType: "application/json",
+                                        url: "http://localhost:3000/money_bags",    
+                                        data:JSON.stringify(object), 
+                                        success:function(data){
+                                          console.log('entered into money_bags');
+                                          window.location.href='http://localhost:4000/';
+                                        },
+                                        error : function (data){
+                                          console.log(data);
+                                        }
+                                      });  
+                                    },
+                                    error: function(data) {alert("ajax error");console.log(data);},
+                                    dataType: 'json'
+                });
+            }
+        });        
+    }
+    </script>
+    <script type="text/javascript">
+    function handleLogin()
+    {   console.log('entered into functino');
+        var username = document.getElementById("emailid").value;        
+        var password = document.getElementById("password").value;      
+        $.ajax({ 
+                    type: "GET",
+                    contentType: 'application/json',
+                    url: "http://localhost:3000/users/getUserByEmail?email="+username,
+                   success: function(data){  
+                           if(data==null)
+                           {
+                              toastr.warning('Invalid Username' );
+                           }
+                           $.ajax({
+                              url: "/encryptPassword",
+                              data:{
+                                password:password
+                              },
+                              success:function(encryptedpassword)
+                              {
+                                if(encryptedpassword==data.encrypted_password)
+                                {
+                                  
+                                  window.location.href = "http://localhost:4000/dashboard?user_id="+data.id;
+                                }
+                                else{
+                                  toastr.warning('Invalid Password' );
+                                }
+                              },
+                          });                          
+                  },
+                    error:function(data)
+                    {
+                        alert('data');
+                    }
+                });
+    }
+    </script>
+  //   <script>
+  //            function handleLogin(){
+  //         event.preventDefault();
+  //           var username = document.getElementById("username").value;
+  //           var password = document.getElementById("password").value;
+  //           var email=document.getElementById("email").value;
+
+  //           var xmlhttp = new XMLHttpRequest();
+  //           xmlhttp.onreadystatechange = function() {
+  //           if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
+  //               if (xmlhttp.status == 200) {
+  //                 window.location.href = "http://localhost:4000/dashboard";
+  //             }
+  //          else if (xmlhttp.status == 500) {
+  //           console.log(xmlhttp);
+  //             document.getElementById("errorMessage").innerHTML = xmlhttp.responseText;
+  //          }
+  //          else {
+  //              alert('Authentication Failed');
+  //          }
+  //       }
+  //   };
+
+  //   xmlhttp.open("GET", "/authentication?username="+username+"&password="+password+"&email="+email+"&confirm-password="+confirm-password, true);
+  //   xmlhttp.send();
+  // }
+  //   </script>
+    </head>
+<body>
+
+
+<div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-login">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <a href="#" class="active" id="login-form-link">Login</a>
+                            </div>
+                            <div class="col-xs-6">
+                                <a href="#" id="register-form-link">Register</a>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12" id="col_login">
+                                <!-- <form id="login-form" action="" method="get" role="form" style="display: block;">
+
+                                 -->
+
+                                 <div id="login-form"  style="display: block;">
+                                     <div class="form-group">
+                                        <input  tabindex="1" class="form-control"  value=""placeholder=" enter your mail id" type="email" name="emailid" id="emailid">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                                <input type="submit" name="login-submit" id="login-submit" onclick="handleLogin()" tabindex="4" class="form-control btn btn-login" value="Log In">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- </form> -->
+                               <!--  <form id="register-form" action=""  method="get" role="form" style="display: none;"> -->
+                               
+                               <div id="register-form" style="display: none;">
+                                    <div class="form-group">
+                                        <input type="text" name="username" tabindex="1" class="form-control" placeholder="Username" value=""     id="newusername">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="password" tabindex="2" class="form-control" placeholder="Password" id="fresh">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="gender" id="gender" tabindex="2" class="gender" placeholder="Gender">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" name="city" id="city" tabindex="2" class="city" placeholder="City">
+                                    </div>                                    
+                                    <div class="form-group">
+                                        <input type="text" name="state" id="state" tabindex="2" class="state" placeholder="State">
+                                    </div>                                                      
+                                    <div class="form-group">
+                                        <input type="text" name="nationality" id="nationality" tabindex="2" class="nationality" placeholder="Nationality">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now" id="submit" onclick="handleRegister()">                                        
+                                            </div>
+                                        </div>
+                                    </div>
+                                <!-- </form> -->
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet"></link>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+     
+</body>
+</html>

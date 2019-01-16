@@ -1,0 +1,158 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1"> 
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/FoodCSS.css" rel="stylesheet">
+	   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+	   	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>  
+	   	<script>
+			window.onload = function() {
+				var query = window.location.search.substring(1);
+				var res=query.split('=');
+				$.ajax({ 						
+				    type: "GET",
+					contentType: 'application/json',
+					url: "http://localhost:3000/products/"+res[1]+"/show_products",
+					success: function(data){						   				  
+					   var parentDiv=document.createElement('div');
+					   parentDiv.setAttribute('class',"prod-container col-md-10");
+					   var subParentDiv = document.createElement('div');
+		 			   subParentDiv.setAttribute('class',"prod-row row");	
+					   for(var i=0;i<data.length;i++)
+					   {							   								
+						       var childDiv = document.createElement('div');
+						       childDiv.setAttribute('class',"product col-md-3 col-sm-4 col-xs-6");
+						       var subChildDiv1 = document.createElement('div');
+						       subChildDiv1.setAttribute('class',"prod-img");
+						       var imgTag=document.createElement('img');
+						       imgTag.setAttribute('class',"pImg");
+						       imgTag.setAttribute('src',data[i].image_url);
+						       subChildDiv1.appendChild(imgTag);
+						       var subChildDiv2=document.createElement('div');
+						       subChildDiv2.setAttribute('class',"prod-title");
+						       var childTextNode=document.createTextNode(data[i].name);
+						       subChildDiv2.appendChild(childTextNode);
+						       var subChildDiv3=document.createElement('div');
+						       subChildDiv3.setAttribute('class',"prod-price");
+						       var childTextNode1=document.createTextNode(data[i].price);
+						       subChildDiv3.appendChild(childTextNode1);
+						       var subChildDiv4=document.createElement('div');
+						       subChildDiv4.setAttribute('class',"add-cart");
+						       var subChildDiv5=document.createElement('div');
+						       subChildDiv5.setAttribute('class',"cartbtn");
+						       var button=document.createElement('button');
+						       button.setAttribute('onclick',"buttonclickevent("+data[i].id+")");
+						       var imgTag1=document.createElement('img');	
+						       imgTag1.setAttribute('class',"cartImg");
+						       imgTag1.setAttribute('src',"img/Cart-PNG-File.png");
+						       button.appendChild(imgTag1);
+						       subChildDiv5.appendChild(button);
+						       subChildDiv4.appendChild(subChildDiv5);						      
+						       childDiv.appendChild(subChildDiv1);
+						       childDiv.appendChild(subChildDiv2);
+						       childDiv.appendChild(subChildDiv3);
+						       childDiv.appendChild(subChildDiv4);
+						       subParentDiv.appendChild(childDiv);
+				  		}
+				  	    parentDiv.appendChild(subParentDiv);
+				  		document.body.appendChild(parentDiv); 
+					},
+					error: function(data){
+           				 alert('error');
+        			}
+				})			
+			}			
+		</script>
+		<script type="text/javascript">		
+			function buttonclickevent(id)
+			{ 	
+			    var userID=document.getElementById('user_id').value;				  		 
+ 		   		$.ajax({ 
+	  				type: "GET",
+				    contentType: 'application/json',
+				    url: "http://localhost:3000/products/"+id,
+				    success: function(data){
+				    	if(data.quantity>0)
+				    	{
+					       var productQuant={"quantity":data.quantity-1};
+					       $.ajax({ 
+				  				type: "PUT",
+							    contentType: 'application/json',
+							    url: "http://localhost:3000/products/"+id,
+							    data:JSON.stringify(productQuant),
+							    success: function(data){
+							    	console.log("UPDATED");
+							    }
+							});
+					    	var JSONObject= {
+							"product_id":data.id,
+							"product_name":data.name,
+							"price":data.price,
+							"image_url":data.image_url,
+							"user_id":userID         
+						    }; 		
+					    	$.ajax({
+							    type: "POST",
+							    contentType: "application/json",
+							    url: "http://localhost:3000/cart_items",    
+							    data:JSON.stringify(JSONObject), 
+							    success:function(data){
+							    toastr.success('Added To Cart');
+							    console.log(data); },
+							    error: function(data) {alert("ajax error"); 						    
+							    console.log(JSONObject);	},
+							    dataType: 'json'
+							});	 
+						}
+						else
+						{
+							toastr.error("Out of stock");
+							$.ajax({ 						
+							    type: "DELETE",
+								contentType: 'application/json',
+								url:"http://localhost:3000/products/"+id,					
+								success: function(data){
+									location.reload();					
+								}
+							})
+						}
+					},
+					error:function(data)
+					{
+						alert(data);
+					}        			   				   
+				});		
+			}
+		</script>   	   
+	</head>
+	<body >
+		<button id='user_id' value=<%=user_id%> style="display: none;">
+		<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
+        	<div class="container">            
+            	<div class="navbar-header page-scroll">
+                	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    	<span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                	</button>
+                	<a class="navbar-brand page-scroll" href="/dashboard">Home</a>
+            	</div>           
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                        	<a href="/products_display"> Products </a>
+                        </li>                                     
+                        <li>
+                            <a href="/cart_items"> YourCart</a>                           
+                        </li>
+                        <li>
+                          <a href="/yourorders">Your Orders</a>
+                        </li> 
+                        <li>
+                            <a href="/logout">Log Out </a>                            
+                        </li>                      
+                    </ul>
+                </div>            
+            </div>        
+        </nav>	 	
+	</body>
+</html>

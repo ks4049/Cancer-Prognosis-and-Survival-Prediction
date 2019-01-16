@@ -1,0 +1,86 @@
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>		
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">	 
+	    <link href="css/productCategoryStyle.css" rel="stylesheet">
+		<script>
+			window.onload = function() {
+				var parentDiv = document.createElement('div');
+				parentDiv.setAttribute('class',"col-md-10");
+				$.ajax({ 				
+				    type: "GET",
+					contentType: 'application/json',
+					url: "http://localhost:3000/product_categories",
+					success: function(data){					   
+						for(var i=0;i<data.length;i++){					
+								var divTag= document.createElement('div');
+								divTag.setAttribute('class',"dropdown col-md-6 col-sm-4 col-xs-6");	  		
+								var createA = document.createElement('a');
+								console.log(data[i].name);
+								var createAText = document.createTextNode(data[i].name);       					    
+								createA.setAttribute('href', data[i].redirect_url);	
+								createA.setAttribute('class',"dropbtn");				        
+								var imageTag = document.createElement('img');						       
+								imageTag.setAttribute('src',data[i].image_url);						       
+								imageTag.setAttribute('class',"img-responsive img-circle");					        
+								createA.appendChild(imageTag);	
+								var hoverDivTag = document.createElement('div');
+								hoverDivTag.setAttribute('class',"dropdown-content");
+								var return_first = function () {
+    								var tmp = null;
+    								$.ajax({
+        								'async': false,
+        								type:"GET",
+										contentType:'application/json',
+										url:"http://localhost:3000/product_categories/"+data[i].id+"/show_sub_category",
+										'success': function (subCategory) {
+											for(var i=0;i<subCategory.length;i++){									
+											var aTag = document.createElement('a');
+											aTag.setAttribute('href',subCategory[i].redirect_url+"?id="+subCategory[i].id);		       
+											var createText = document.createTextNode(subCategory[i].name);
+											console.log(subCategory[i].name);								
+											aTag.appendChild(createText);
+											hoverDivTag.appendChild(aTag);	
+            								tmp = subCategory;
+        								}
+    								}
+    							})    								
+								} ();																
+								createA.appendChild(hoverDivTag);
+								createA.appendChild(createAText);  							       
+								divTag.appendChild(createA);									        
+								parentDiv.appendChild(divTag);
+						}
+					}					  				  					   
+				})
+				document.body.appendChild(parentDiv); 
+	      	}	    	
+		</script>		
+	</head>
+	<body style="background-color : #f2f2f2">
+	<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
+        	<div class="container">            
+            	<div class="navbar-header page-scroll">
+                	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    	<span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                	</button>
+                	<a class="navbar-brand page-scroll" href="/dashboard">Home</a>
+            	</div>           
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">                
+                        <li>
+                            <a href="/cart_items"> YourCart</a>                           
+                        </li>
+                        <li>
+                          <a href="/yourorders">Your Orders</a>
+                        </li>  
+                        <li>
+                            <a href="/logout">Log Out </a>                            
+                        </li>                     
+                    </ul>
+                </div>            
+            </div>        
+        </nav>
+ 	</body>
+</html>

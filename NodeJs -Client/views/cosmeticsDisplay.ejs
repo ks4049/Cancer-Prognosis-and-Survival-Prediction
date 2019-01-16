@@ -1,0 +1,70 @@
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1"> 
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/cosmetics.css" rel="stylesheet">
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+   	    <script>
+	    $(document).ready(function(){
+	    	toastr.options = {        
+	    		   "debug": false, 
+	    	       "positionClass": "toast-top-right",   
+	    	       "onclick": null,        
+	    	       "fadeIn": 200,  
+	    	       "fadeOut": 3000, 
+	    	       "timeOut": 5000,
+	               "extendedTimeOut": 2000    
+	           }
+	    	$("button").click(function(event){
+ 		   		console.log($(this).val());
+        		$.ajax({
+        			url: "/addElement",
+        			data:{
+        				selectedItem:$(this).val()
+        			},
+        			success: function(result){
+            			console.log(result);
+            			toastr.success("Added to Cart!!");
+        			}
+        		});
+    		});
+		});
+     </script>
+	</head>
+	<body >
+	<header>
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-lead-in">Keep Calm and Shop ON...</div>
+                <div class="intro-heading">Welcome...</div>
+                <a href="#services" class="page-scroll btn btn-xl">Shop More</a>
+            </div>
+        </div>
+    </header>
+		<div class="prod-container col-md-10">
+			<div class="prod-row row">
+				<div class="product col-md-3 col-sm-4 col-xs-6">
+					<div class="prod-img">
+						<img class="pImg" src="img/Food/Chicken Lollipop.jpg">
+					</div>
+					<div class="prod-title">
+						Chicken Lollipop
+					</div>
+					<div class="prod-price">
+						$53.66
+					</div>
+					<div class="add-cart">
+						<div class="cartbtn">
+							<button value="Cube" ><img class="cartImg" src="img/Cart-PNG-File.png"></button>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+			<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet"></link>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+     
+	</body>
+
+</html>

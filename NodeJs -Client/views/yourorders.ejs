@@ -1,0 +1,82 @@
+<html>
+	<head>
+		<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">   
+	    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+	    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+	    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>	  
+	    <link href="css/bootstrap.min.css" rel="stylesheet">
+	    <link href="css/agency.min.css" rel="stylesheet">
+	    <link href="css/agency.css" rel="stylesheet">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<link href="css/CartItemsStyle.css" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script> 
+		<script type="text/javascript">
+
+			window.onload = function displayCartDetails() {
+				var userID=document.getElementById('user_id').value;
+				$.ajax({ 
+					type: "GET",
+					contentType: 'application/json',
+					url: "http://localhost:3000/data_analytics/getItemsByUserId?user_id="+userID,
+					success: function(data){
+						console.log(data);
+						var parentDiv=document.createElement('div');	
+						for(var i=-1;i<data.length-1;){						
+								var orderIdTag = document.createElement('div');
+								var orderIdText = document.createTextNode(data[i+1].order_id);
+								orderIdTag.setAttribute('style',"color:blue;")
+								orderIdTag.appendChild(orderIdText);	
+								console.log(data[i+1].order_id);			
+								do
+								{
+									var productdiv = document.createElement('div');
+									var productNameTagText = document.createTextNode(data[i+1].name+"  "+data[i+1].price);
+									productdiv.appendChild(productNameTagText);		
+									var imgTag = document.createElement('img');
+									imgTag.setAttribute('src',data[i+1].image_url);
+									productdiv.appendChild(imgTag);
+									orderIdTag.appendChild(productdiv);	
+									i++;	
+								}while(((i+1)<data.length) && (data[i+1].order_id == data[i].order_id));	
+								parentDiv.appendChild(orderIdTag);
+						}	
+						document.body.appendChild(parentDiv); 						
+					},
+					error : function(data)
+					{
+						console.log(data);
+					}
+				});
+			}
+		</script>		
+	</head>
+	<body>
+		<button id='user_id' value=<%=user_id%> style="display: none;">
+		<nav id="mainNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
+        	<div class="container">            
+            	<div class="navbar-header page-scroll">
+                	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    	<span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                	</button>
+                	<a class="navbar-brand page-scroll" href="/dashboard">Home</a>
+            	</div>           
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                        	<a href="/products_display"> Products </a>
+                        </li>                                     
+                        <li>
+                            <a href="/cart_items"> YourCart</a>                           
+                        </li>
+                        <li>
+                            <a href="/logout">Log Out </a>                            
+                        </li>                     
+                    </ul>
+                </div>            
+            </div>        
+        </nav>
+	</body>
+</html>			

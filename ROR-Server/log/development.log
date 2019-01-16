@@ -1,0 +1,370 @@
+DEPRECATION WARNING: Passing strings or symbols to the middleware builder is deprecated, please change
+them to actual class references.  For example:
+
+  "Rack::Cors" => Rack::Cors
+
+ (called from <top (required)> at C:/Sites/project/config/environment.rb:5)
+DEPRECATION WARNING: Passing strings or symbols to the middleware builder is deprecated, please change
+them to actual class references.  For example:
+
+  "Rack::Cors" => Rack::Cors
+
+ (called from <top (required)> at C:/Sites/project/config/environment.rb:5)
+DEPRECATION WARNING: Passing strings or symbols to the middleware builder is deprecated, please change
+them to actual class references.  For example:
+
+  "Rack::Cors" => Rack::Cors
+
+ (called from <top (required)> at C:/Sites/project/config/environment.rb:5)
+DEPRECATION WARNING: Passing strings or symbols to the middleware builder is deprecated, please change
+them to actual class references.  For example:
+
+  "Rack::Cors" => Rack::Cors
+
+ (called from <top (required)> at C:/Sites/project/config/environment.rb:5)
+  [1m[35m (229.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying PRIMARY KEY)[0m
+  [1m[35m (116.3ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (8.0ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5180123816403031545);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (20.0ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20170205140600)
+  [1m[35m (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (149.8ms)[0m  [1m[35mCREATE TABLE "users" ("id" serial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "username" character varying DEFAULT '' NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (24.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170205140600"]]
+  [1m[35m (16.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateOrders (20170205140630)
+  [1m[35m (4.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (215.3ms)[0m  [1m[35mCREATE TABLE "orders" ("id" serial primary key, "user_id" integer, "total" integer, "order_number" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_f868b47f6a"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (108.0ms)[0m  [1m[35mCREATE  INDEX  "index_orders_on_user_id" ON "orders"  ("user_id")[0m
+  [1m[35mSQL (28.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170205140630"]]
+  [1m[35m (36.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateProductCategories (20170205150933)
+  [1m[35m (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (126.8ms)[0m  [1m[35mCREATE TABLE "product_categories" ("id" serial primary key, "name" character varying, "ancestry" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (4.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170205150933"]]
+  [1m[35m (0.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateProducts (20170205151829)
+  [1m[35m (4.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (147.9ms)[0m  [1m[35mCREATE TABLE "products" ("id" serial primary key, "name" character varying, "product_category_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_efe167855e"
+FOREIGN KEY ("product_category_id")
+  REFERENCES "product_categories" ("id")
+)[0m
+  [1m[35m (58.1ms)[0m  [1m[35mCREATE  INDEX  "index_products_on_product_category_id" ON "products"  ("product_category_id")[0m
+  [1m[35mSQL (4.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170205151829"]]
+  [1m[35m (0.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateOrderItems (20170205151954)
+  [1m[35m (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (45.9ms)[0m  [1m[35mCREATE TABLE "order_items" ("id" serial primary key, "item_total" integer, "order_id" integer, "product_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_e3cb28f071"
+FOREIGN KEY ("order_id")
+  REFERENCES "orders" ("id")
+, CONSTRAINT "fk_rails_f1a29ddd47"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+)[0m
+  [1m[35m (62.2ms)[0m  [1m[35mCREATE  INDEX  "index_order_items_on_order_id" ON "order_items"  ("order_id")[0m
+  [1m[35m (53.5ms)[0m  [1m[35mCREATE  INDEX  "index_order_items_on_product_id" ON "order_items"  ("product_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170205151954"]]
+  [1m[35m (4.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMoneyBags (20170205183920)
+  [1m[35m (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (76.8ms)[0m  [1m[35mCREATE TABLE "money_bags" ("id" serial primary key, "user_id" integer, "available_credit" integer, "expenses" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_b4c6a3253d"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (76.1ms)[0m  [1m[35mCREATE  INDEX  "index_money_bags_on_user_id" ON "money_bags"  ("user_id")[0m
+  [1m[35mSQL (0.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170205183920"]]
+  [1m[35m (4.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateTasks (20170205184531)
+  [1m[35m (4.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (296.8ms)[0m  [1m[35mCREATE TABLE "tasks" ("id" serial primary key, "name" character varying, "rule" character varying, "status" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (21.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170205184531"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAudits (20170205184739)
+  [1m[35m (1.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (141.2ms)[0m  [1m[35mCREATE TABLE "audits" ("id" serial primary key, "task_id" integer, "status" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_6fc0129b96"
+FOREIGN KEY ("task_id")
+  REFERENCES "tasks" ("id")
+)[0m
+  [1m[35m (60.6ms)[0m  [1m[35mCREATE  INDEX  "index_audits_on_task_id" ON "audits"  ("task_id")[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170205184739"]]
+  [1m[35m (2.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddColumnsToProductCategories (20170308104906)
+  [1m[35m (1.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.5ms)[0m  [1m[35mALTER TABLE product_categories ADD COLUMN image_url varchar(30),ADD COLUMN redirect_url varchar(30)[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170308104906"]]
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddColumnToProducts (20170320042455)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.5ms)[0m  [1m[35mALTER TABLE products ADD COLUMN image_url varchar(30), ADD COLUMN price varchar(30),ADD COLUMN weight_in_kgs decimal(7,4),ADD COLUMN cholestrol_per_gm decimal(7,4) [0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170320042455"]]
+  [1m[35m (1.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateCartItems (20170320154218)
+  [1m[35m (1.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (107.6ms)[0m  [1m[35mCREATE TABLE "cart_items" ("id" serial primary key, "product_id" integer, "product_name" character varying, "price" character varying, "image_url" character varying, "user_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170320154218"]]
+  [1m[35m (8.4ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AlterColumnOfOrderItem (20170324093912)
+  [1m[35m (2.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (335.5ms)[0m  [1m[35mALTER table order_items ALTER COLUMN item_total TYPE varchar(10)[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170324093912"]]
+  [1m[35m (8.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddQuantityToProducts (20170330052856)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.5ms)[0m  [1m[35mALTER TABLE products ADD COLUMN quantity integer[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170330052856"]]
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AlterUsersTable (20170331054428)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (49.5ms)[0m  [1m[35malter table users ADD CONSTRAINT unique_email UNIQUE(email)[0m
+  [1m[35m (2.0ms)[0m  [1m[35malter table users ADD COLUMN gender varchar(5),ADD COLUMN city varchar(20),ADD COLUMN state varchar(20),ADD COLUMN nationality varchar(20)[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170331054428"]]
+  [1m[35m (0.6ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (2.0ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", 2017-05-01 16:35:09 UTC], ["updated_at", 2017-05-01 16:35:09 UTC]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_advisory_unlock(5180123816403031545)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+DEPRECATION WARNING: Passing strings or symbols to the middleware builder is deprecated, please change
+them to actual class references.  For example:
+
+  "Rack::Cors" => Rack::Cors
+
+ (called from <top (required)> at C:/Sites/project/config/environment.rb:5)
+DEPRECATION WARNING: Passing strings or symbols to the middleware builder is deprecated, please change
+them to actual class references.  For example:
+
+  "Rack::Cors" => Rack::Cors
+
+ (called from <top (required)> at C:/Sites/project/config/environment.rb:5)
+  [1m[35m (1.5ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5180123816403031545);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AlterUsersTable (20170331054428)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (24.0ms)[0m  [1m[35malter table users ADD CONSTRAINT unique_email UNIQUE(email)[0m
+  [1m[35m (0.5ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (1.0ms)[0m  [1m[34mSELECT pg_advisory_unlock(5180123816403031545)[0m
+DEPRECATION WARNING: Passing strings or symbols to the middleware builder is deprecated, please change
+them to actual class references.  For example:
+
+  "Rack::Cors" => Rack::Cors
+
+ (called from <top (required)> at C:/Sites/project/config/environment.rb:5)
+DEPRECATION WARNING: Passing strings or symbols to the middleware builder is deprecated, please change
+them to actual class references.  For example:
+
+  "Rack::Cors" => Rack::Cors
+
+ (called from <top (required)> at C:/Sites/project/config/environment.rb:5)
+  [1m[35m (128.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying PRIMARY KEY)[0m
+  [1m[35m (161.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (20.0ms)[0m  [1m[34mSELECT pg_try_advisory_lock(5180123816403031545);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (3.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20170205140600)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (153.6ms)[0m  [1m[35mCREATE TABLE "users" ("id" serial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "username" character varying DEFAULT '' NOT NULL, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (2.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170205140600"]]
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateOrders (20170205140630)
+  [1m[35m (1.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (54.0ms)[0m  [1m[35mCREATE TABLE "orders" ("id" serial primary key, "user_id" integer, "total" integer, "order_number" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_f868b47f6a"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (60.0ms)[0m  [1m[35mCREATE  INDEX  "index_orders_on_user_id" ON "orders"  ("user_id")[0m
+  [1m[35mSQL (1.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170205140630"]]
+  [1m[35m (1.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateProductCategories (20170205150933)
+  [1m[35m (1.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (164.6ms)[0m  [1m[35mCREATE TABLE "product_categories" ("id" serial primary key, "name" character varying, "ancestry" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (2.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170205150933"]]
+  [1m[35m (0.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateProducts (20170205151829)
+  [1m[35m (1.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (115.6ms)[0m  [1m[35mCREATE TABLE "products" ("id" serial primary key, "name" character varying, "product_category_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_efe167855e"
+FOREIGN KEY ("product_category_id")
+  REFERENCES "product_categories" ("id")
+)[0m
+  [1m[35m (72.1ms)[0m  [1m[35mCREATE  INDEX  "index_products_on_product_category_id" ON "products"  ("product_category_id")[0m
+  [1m[35mSQL (5.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170205151829"]]
+  [1m[35m (8.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateOrderItems (20170205151954)
+  [1m[35m (1.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (68.0ms)[0m  [1m[35mCREATE TABLE "order_items" ("id" serial primary key, "item_total" integer, "order_id" integer, "product_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_e3cb28f071"
+FOREIGN KEY ("order_id")
+  REFERENCES "orders" ("id")
+, CONSTRAINT "fk_rails_f1a29ddd47"
+FOREIGN KEY ("product_id")
+  REFERENCES "products" ("id")
+)[0m
+  [1m[35m (57.0ms)[0m  [1m[35mCREATE  INDEX  "index_order_items_on_order_id" ON "order_items"  ("order_id")[0m
+  [1m[35m (81.6ms)[0m  [1m[35mCREATE  INDEX  "index_order_items_on_product_id" ON "order_items"  ("product_id")[0m
+  [1m[35mSQL (5.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170205151954"]]
+  [1m[35m (19.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateMoneyBags (20170205183920)
+  [1m[35m (19.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (76.6ms)[0m  [1m[35mCREATE TABLE "money_bags" ("id" serial primary key, "user_id" integer, "available_credit" integer, "expenses" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_b4c6a3253d"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (64.6ms)[0m  [1m[35mCREATE  INDEX  "index_money_bags_on_user_id" ON "money_bags"  ("user_id")[0m
+  [1m[35mSQL (2.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170205183920"]]
+  [1m[35m (40.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateTasks (20170205184531)
+  [1m[35m (1.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (110.1ms)[0m  [1m[35mCREATE TABLE "tasks" ("id" serial primary key, "name" character varying, "rule" character varying, "status" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170205184531"]]
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAudits (20170205184739)
+  [1m[35m (1.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (151.6ms)[0m  [1m[35mCREATE TABLE "audits" ("id" serial primary key, "task_id" integer, "status" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_6fc0129b96"
+FOREIGN KEY ("task_id")
+  REFERENCES "tasks" ("id")
+)[0m
+  [1m[35m (54.5ms)[0m  [1m[35mCREATE  INDEX  "index_audits_on_task_id" ON "audits"  ("task_id")[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170205184739"]]
+  [1m[35m (1.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddColumnsToProductCategories (20170308104906)
+  [1m[35m (1.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE product_categories ADD COLUMN image_url varchar(30),ADD COLUMN redirect_url varchar(30)[0m
+  [1m[35mSQL (1.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170308104906"]]
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddColumnToProducts (20170320042455)
+  [1m[35m (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (2.0ms)[0m  [1m[35mALTER TABLE products ADD COLUMN image_url varchar(30), ADD COLUMN price varchar(30),ADD COLUMN weight_in_kgs decimal(7,4),ADD COLUMN cholestrol_per_gm decimal(7,4) [0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170320042455"]]
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateCartItems (20170320154218)
+  [1m[35m (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (140.1ms)[0m  [1m[35mCREATE TABLE "cart_items" ("id" serial primary key, "product_id" integer, "product_name" character varying, "price" character varying, "image_url" character varying, "user_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170320154218"]]
+  [1m[35m (2.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AlterColumnOfOrderItem (20170324093912)
+  [1m[35m (1.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (221.2ms)[0m  [1m[35mALTER table order_items ALTER COLUMN item_total TYPE varchar(10)[0m
+  [1m[35mSQL (2.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170324093912"]]
+  [1m[35m (11.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddQuantityToProducts (20170330052856)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (1.5ms)[0m  [1m[35mALTER TABLE products ADD COLUMN quantity integer[0m
+  [1m[35mSQL (1.0ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170330052856"]]
+  [1m[35m (1.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AlterUsersTable (20170331054428)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (34.0ms)[0m  [1m[35malter table users ADD CONSTRAINT unique_email UNIQUE(email)[0m
+  [1m[35m (2.5ms)[0m  [1m[35malter table users ADD COLUMN gender varchar(8),ADD COLUMN city varchar(20),ADD COLUMN state varchar(20),ADD COLUMN nationality varchar(20)[0m
+  [1m[35mSQL (1.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170331054428"]]
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (5.0ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (2.0ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", 2017-05-01 16:46:25 UTC], ["updated_at", 2017-05-01 16:46:25 UTC]]
+  [1m[35m (1.0ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT pg_advisory_unlock(5180123816403031545)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+DEPRECATION WARNING: Passing strings or symbols to the middleware builder is deprecated, please change
+them to actual class references.  For example:
+
+  "Rack::Cors" => Rack::Cors
+
+ (called from <top (required)> at C:/Sites/project/config/environment.rb:5)
+Started POST "/users" for 127.0.0.1 at 2017-05-01 22:18:50 +0530
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by UsersController#create as HTML
+  Parameters: {"email"=>"khavz@gmail.com", "encrypted_password"=>"[FILTERED]", "username"=>"Khavya S", "gender"=>"Female", "city"=>"Chennai", "state"=>"TamilNadu", "nationality"=>"Indian", "user"=>{"email"=>"khavz@gmail.com", "encrypted_password"=>"[FILTERED]", "username"=>"Khavya S", "gender"=>"Female", "city"=>"Chennai", "state"=>"TamilNadu", "nationality"=>"Indian"}}
+  [1m[35m (11.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (36.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "username", "created_at", "updated_at", "gender", "city", "state", "nationality") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["email", "khavz@gmail.com"], ["encrypted_password", "d48d0c6d85f97d809b303408f15a7122"], ["username", "Khavya S"], ["created_at", 2017-05-01 16:48:53 UTC], ["updated_at", 2017-05-01 16:48:53 UTC], ["gender", "Female"], ["city", "Chennai"], ["state", "TamilNadu"], ["nationality", "Indian"]]
+  [1m[35m (2.5ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 173ms (Views: 3.8ms | ActiveRecord: 70.6ms)
+
+
+Started POST "/money_bags" for 127.0.0.1 at 2017-05-01 22:18:53 +0530
+Processing by MoneyBagsController#create as */*
+  Parameters: {"user_id"=>1, "available_credit"=>1000, "expenses"=>0, "money_bag"=>{"user_id"=>1, "available_credit"=>1000, "expenses"=>0}}
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (9.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (58.0ms)[0m  [1m[32mINSERT INTO "money_bags" ("user_id", "available_credit", "expenses", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", 1], ["available_credit", 1000], ["expenses", 0], ["created_at", 2017-05-01 16:48:53 UTC], ["updated_at", 2017-05-01 16:48:53 UTC]]
+  [1m[35m (2.5ms)[0m  [1m[35mCOMMIT[0m
+Completed 201 Created in 217ms (Views: 5.1ms | ActiveRecord: 76.5ms)
+
+
+Started GET "/users/getUserByEmail?email=khavz@gmail.com" for 127.0.0.1 at 2017-05-01 22:19:11 +0530
+Processing by UsersController#getUserByEmail as */*
+  Parameters: {"email"=>"khavz@gmail.com", "user"=>{}}
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "khavz@gmail.com"], ["LIMIT", 1]]
+Completed 200 OK in 60ms (Views: 53.6ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/users/getUserByEmail?email=khavz@gmail.com" for 127.0.0.1 at 2017-05-01 22:19:12 +0530
+Processing by UsersController#getUserByEmail as */*
+  Parameters: {"email"=>"khavz@gmail.com", "user"=>{}}
+  [1m[36mUser Load (1.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "khavz@gmail.com"], ["LIMIT", 1]]
+Completed 200 OK in 16ms (Views: 2.2ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/users/getUserByEmail?email=khavz@gmail.com" for 127.0.0.1 at 2017-05-01 22:19:20 +0530
+Processing by UsersController#getUserByEmail as */*
+  Parameters: {"email"=>"khavz@gmail.com", "user"=>{}}
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."email" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["email", "khavz@gmail.com"], ["LIMIT", 1]]
+Completed 200 OK in 18ms (Views: 2.5ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2017-05-01 22:19:21 +0530
+Processing by UsersController#show as */*
+  Parameters: {"id"=>"1", "user"=>{}}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 15ms (Views: 2.8ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/product_categories" for 127.0.0.1 at 2017-05-01 22:19:29 +0530
+Processing by ProductCategoriesController#index as */*
+  Parameters: {"product_category"=>{}}
+  [1m[36mProductCategory Load (1.5ms)[0m  [1m[34mSELECT "product_categories".* FROM "product_categories" WHERE (ancestry is NULL)[0m
+Completed 200 OK in 9ms (Views: 4.5ms | ActiveRecord: 4.5ms)
+
+
+Started GET "/data_analytics/getItemsByUserId?user_id=1" for 127.0.0.1 at 2017-05-01 22:19:33 +0530
+Processing by DataAnalyticsController#getItemsByUserId as */*
+  Parameters: {"user_id"=>"1", "data_analytic"=>{}}
+user_id----1
+  [1m[35m (32.0ms)[0m  [1m[34mselect * from (select product_id,order_id from order_items where order_id in (select id from orders where user_id=1)) items inner join products on products.id=items.product_id;[0m
+Completed 200 OK in 36ms (Views: 0.7ms | ActiveRecord: 32.0ms)
+
+
+Started GET "/cart_items?user_id=1" for 127.0.0.1 at 2017-05-01 22:19:36 +0530
+Processing by CartItemsController#index as */*
+  Parameters: {"user_id"=>"1", "cart_item"=>{}}
+  [1m[36mCartItem Load (4.0ms)[0m  [1m[34mSELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."user_id" = $1[0m  [["user_id", 1]]
+Completed 200 OK in 8ms (Views: 1.3ms | ActiveRecord: 4.0ms)
+
+
+Started GET "/product_categories" for 127.0.0.1 at 2017-05-01 22:19:39 +0530
+Processing by ProductCategoriesController#index as */*
+  Parameters: {"product_category"=>{}}
+  [1m[36mProductCategory Load (0.0ms)[0m  [1m[34mSELECT "product_categories".* FROM "product_categories" WHERE (ancestry is NULL)[0m
+Completed 200 OK in 8ms (Views: 3.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/data_analytics/getItemsByUserId?user_id=1" for 127.0.0.1 at 2017-05-01 22:19:41 +0530
+Processing by DataAnalyticsController#getItemsByUserId as */*
+  Parameters: {"user_id"=>"1", "data_analytic"=>{}}
+user_id----1
+  [1m[35m (0.0ms)[0m  [1m[34mselect * from (select product_id,order_id from order_items where order_id in (select id from orders where user_id=1)) items inner join products on products.id=items.product_id;[0m
+Completed 200 OK in 12ms (Views: 0.7ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/users/1" for 127.0.0.1 at 2017-05-01 22:19:42 +0530
+Processing by UsersController#show as */*
+  Parameters: {"id"=>"1", "user"=>{}}
+  [1m[36mUser Load (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+Completed 200 OK in 12ms (Views: 1.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/product_categories" for 127.0.0.1 at 2017-05-01 22:20:19 +0530
+Processing by ProductCategoriesController#index as */*
+  Parameters: {"product_category"=>{}}
+  [1m[36mProductCategory Load (36.0ms)[0m  [1m[34mSELECT "product_categories".* FROM "product_categories" WHERE (ancestry is NULL)[0m
+Completed 200 OK in 44ms (Views: 7.9ms | ActiveRecord: 36.0ms)
+
+
