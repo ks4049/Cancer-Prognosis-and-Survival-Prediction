@@ -1,0 +1,124 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+<html>
+<head>
+<title> Query data</title>
+<!-- Custom Theme files -->
+
+<!-- Custom Theme files -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Square login form web template, Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
+<!--Google Fonts-->
+<link href="/css/style.css" rel="stylesheet" type="text/css" >
+<link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<!--Google Fonts-->
+<style type="text/css" media="screen">
+  .hide{
+    display:none;
+  }
+</style>
+</head>
+<body>
+<!--header start here-->
+<div class="login-form">
+			<div class="top-login">
+				<span><img src="./images/group.png" alt=""/></span>
+			</div>
+			<h1>QUERY DATA</h1>
+			<div class="login-top">
+
+			<form action="/fuzzy" method="post">
+				<div class="login-ic">
+					<i ></i>
+					<input type="text"   name="patient-id" value="patient-id" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'id';}"/>
+					<div class="clear"> </div>
+				</div>
+				<div class="login-ic">
+
+					<input type="text"  name="patientname" value="patient-name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'name';}"/>
+					<div class="clear"> </div>
+				</div>
+
+
+				<div id="tabs">
+				    <div id="nav">
+
+
+				      <p style="color : red"}>Lung Cancer Diagnostics<input type="radio" name="tab" value="lung" class="div1" /></p>
+				      <p style="color : red">Liver Cancer Diagnostics<input type="radio" name="tab" value="liver" class="div2" /></p>
+				    </div>
+
+				    <div id="div1" class="login-ic">
+							<input type="text"  name="smoking" value="smoking" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'name';}"/>
+							<div class="clear"> </div>
+				    </div>
+
+				    <div id="div2" class="login-ic">
+							<input type="text"  name="alcohol" value="alcohol" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'name';}"/>
+							<div class="clear"> </div>
+
+
+								<input type="text"  name="obesity" value="obesity" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'name';}"/>
+								<div class="clear"> </div>
+
+									<input type="text"  name="cholestrol" value="cholestrol(LDL)" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'name';}"/>
+									<div class="clear"> </div>
+								</div>
+							</div>
+				   
+
+
+				  <script type="text/javascript" charset="utf-8">
+				    (function(){
+				      var tabs =document.getElementById('tabs');
+				      var nav = tabs.getElementsByTagName('input');
+
+				      /*
+				      * Hide all tabs
+				      */
+				      function hideTabs(){
+				        var tab = tabs.getElementsByTagName('div');
+				        for(i in tab){
+				          if(tab[i].className == 'login-ic'){
+				            tab[i].className = tab[i].className + ' hide';
+				          }
+				        }
+				      }
+
+				      /*
+				      * Show the clicked tab
+				      */
+				      function showTab(tab){
+				        hideTabs();
+				        document.getElementById(tab).className = document.getElementById(tab).className.replace('hide', '');
+				      }
+
+				      hideTabs(); /* hide tabs on load */
+
+				      /*
+				      * Add click events
+				      */
+				      for(i in nav){
+				        nav[i].onclick = function(){
+				          showTab(this.className);
+				        }
+				      }
+				    })();
+				  </script>
+				<div class="log-bwn">
+					<input type="submit"  value="query" >
+				</div>
+        <div>
+
+        <p> <a href="/">home</a>.</p>
+</div>
+        </form>
+
+    </div>
+
+<!--header start here-->
+</body>
+</html>

@@ -1,0 +1,228 @@
+<!doctype html>
+<!--
+  Material Design Lite
+  Copyright 2015 Google Inc. All rights reserved.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License
+-->
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="icon" type="image/png" href="images/DB_16Ñ…16.png">
+
+<!-- Custom CSS -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Material Dashboard Lite</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,300,100,700,900' rel='stylesheet'
+          type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- inject:css -->
+    <link rel="stylesheet" href="css/lib/getmdl-select.min.css">
+    <link rel="stylesheet" href="css/lib/nv.d3.css">
+    <link rel="stylesheet" href="css/application.css">
+    <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+    <!-- endinject -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+      <!-- Bootstrap Core JavaScript -->
+</head>
+<body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header is-small-screen">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <div class="mdl-layout-spacer"></div>
+            <!-- Search-->
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
+                <label class="mdl-button mdl-js-button mdl-button--icon" for="search">
+                    <i class="material-icons">search</i>
+                </label>
+
+                <div class="mdl-textfield__expandable-holder">
+                    <input class="mdl-textfield__input" type="text" id="search"/>
+                    <label class="mdl-textfield__label" for="search">Enter your query...</label>
+                </div>
+            </div>
+
+
+
+
+            <button id="more"
+                    class="mdl-button mdl-js-button mdl-button--icon">
+                <i class="material-icons">more_vert</i>
+            </button>
+
+            <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect mdl-shadow--2dp settings-dropdown"
+                for="more">
+                <li class="mdl-menu__item">
+                    Settings
+                </li>
+                <a class="mdl-menu__item" href="https://github.com/CreativeIT/getmdl-dashboard/issues">
+                    Support
+                </a>
+                <li class="mdl-menu__item">
+                    F.A.Q.
+                </li>
+
+                  <a class="mdl-menu__item" href = "/logout">
+                LOGOUT
+              </a>
+
+            </ul>
+        </div>
+    </header>
+
+    <div class="mdl-layout__drawer">
+        <header>oncologist dashboard</header>
+        <nav class="mdl-navigation">
+            <a class="mdl-navigation__link mdl-navigation__link--current" href="/profile">
+                <i class="material-icons" role="presentation">dashboard</i>
+                Dashboard
+            </a>
+            <a class="mdl-navigation__link" href="/forms">
+                <i class="material-icons" role="presentation">person</i>
+                Account
+            </a>
+            <a class="mdl-navigation__link" href="/appointment">
+               <i class="material-icons" role="presentation"> person</i>
+               Appointment
+             </a>
+             <a class="mdl-navigation__link" href="/fuzzy">
+                <i class="material-icons" role="presentation"> person</i>
+              OUTPUT
+              </a>
+            <div class="mdl-layout-spacer"></div>
+
+        </nav>
+    </div>
+
+    <main class="mdl-layout__content">
+
+        <div class="mdl-grid mdl-grid--no-spacing">
+
+            <div class="mdl-grid mdl-cell mdl-cell--9-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone mdl-cell--top">
+
+                <!-- Pie chart-->
+
+                <!-- Weather widget-->
+
+                <!-- Trending widget-->
+
+                <!-- Cotoneaster card-->
+              <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Show Score</button>
+            </div>
+
+
+                <!-- ToDo_widget-->
+
+
+    </main>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"> </button>
+        <h4 class="modal-title"> Probability of Cancer </h4>
+        <div class="modal-body">
+
+    <div class="mdl-card mdl-shadow--2dp pie-chart">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">OUTPUT</h2>
+        </div>
+        <div class="mdl-card__supporting-text">
+          
+          <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+            <thead>
+                                                <tr>
+                                                    <th>PatientId</th>
+                                                    <th> quantity</th>
+                                                    <th> productid </th>
+                                                    <th> Product name</th>
+                                                    <th> Cholestrol Level</th>
+                                                  </tr>
+                                        </thead>
+                                        <%data.forEach(function(dat){%>
+
+                                        <tbody>
+                             <tr class="odd gradeX">
+                                 <td style="color : red"><%=dat.user_id%></td>
+                                 <td style="color : red"><%=dat.quantity%></td>
+                                 <td style="color : red"><%=dat.product_id%></td>
+                                 <td style="color : red"><%=dat.name%></td>
+                                 <td style="color : red"><%=(dat.cholestrol_level/3000)*10%></td>
+                               </tr>
+
+          <!-- LOGIN FORM -->
+          </tbody>
+          <%}) %>
+          </table>
+          <!-- Line chart-->
+
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Table-->
+
+
+<!-- inject:js -->
+<script src="js/d3.js"></script>
+<script src="js/getmdl-select.min.js"></script>
+<script src="js/material.js"></script>
+<script src="js/nv.d3.js"></script>
+<script src="js/widgets/employer-form/employer-form.js"></script>
+<script src="js/widgets/line-chart/line-chart-nvd3.js"></script>
+<script src="js/widgets/map/maps.js"></script>
+<script src="js/widgets/pie-chart/pie-chart-nvd3.js"></script>
+<script src="js/widgets/table/table.js"></script>
+<script src="js/widgets/todo/todo.js"></script>
+<!-- endinject -->
+
+
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+
+</body>
+</html>
