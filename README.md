@@ -1,0 +1,9 @@
+# Cancer-Prognosis-and-Survival-Prediction
+Automating the prognosis of cancer in new patients and also survival prediction of existing cancer patients to see whether they fall into relapse or non-relapse and provide appropriate treatment. We have introduced a new idea , where an e-commerce application using micro services approach has been developed to track the purchases of the users and data analysis has been done to get the required data which can be used for our prediction. Along with these, clinical data and genomic data have been trained and tested using ensemble learning algorithms for survival prediction.
+
+Developed an e-commerce application to track the purchases of the users, i.e. the food products frequently consumed by the users. The web application was developed using some of the best software development practices as in, we used the concept of microservices approach, were the services are developed independently. The client side of the web application was developed using Node.js(express.js). On the hand, the server-side of the web application is developed using Ruby on Rails. Each service is exposed as an API and the relevant information is received by making API calls from the client side.
+
+Using the data received from the application, we have set few factors such as obesity, cholestrol level, alcohol consumption tec, which could be the reasons for cancer contraction and fuzzy rule has been implemented to calculate the probability of can cer based on the pre-defined factors. Using the probability, we generate a growth model using Matlab and perform cell counting.
+
+Survival Prediction Module:
+Performed analytics on the NCBI breast cancer clinical and genome datasets using Random Forest and ensemble learning algorithms, to classify whether the patient falls under relapse or non-relapse. Also, implemented the survival prediction module in R.
